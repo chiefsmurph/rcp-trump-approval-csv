@@ -16,7 +16,7 @@ app.get('/rcp', async (req, res) => {
 
 app.get('/538', async (req, res) => {
     const includeFuture = req.query.includeFuture !== undefined;
-    console.log(new Date().toLocaleString(), 'getting 538 trump json', { includeFuture }, req.query.includeFuture)
+    console.log(new Date().toLocaleString(), 'getting 538 trump json', { includeFuture })
     const json = await get538(includeFuture);
     res.csv(json, true);
 });

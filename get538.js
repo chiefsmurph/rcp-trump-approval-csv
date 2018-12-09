@@ -10,11 +10,10 @@ const get538 = async (includeFuture) => {
     const res = await rp('https://projects.fivethirtyeight.com/trump-approval-ratings/');
     const approvalText = findTextAndReturnRemainder(res, "var approval=");
     let json = JSON.parse(approvalText);
-    console.log({ includeFuture }, 'here')
     if (!includeFuture) {
         json = json.filter(o => !o.future)
     }
-    const mapped = json.map(obj => ({
+    return json.map(obj => ({
         date: new Date(obj.date).toLocaleDateString(),
         approve: obj.approve_estimate,
         ...includeFuture && {
@@ -27,8 +26,6 @@ const get538 = async (includeFuture) => {
             disapproveLo: obj.disapprove_lo
         },
     }));
-    console.log(mapped);
-    return mapped;
 };
 
 
