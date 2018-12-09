@@ -1,0 +1,15 @@
+{
+  "name": "rcp-trump-approval-csv",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/chiefsmurph/rcp-trump-approval-csv.git",
+  "author": "John Murphy <chiefsmurph@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "request": "^2.88.0",
+    "request-promise": "^4.2.2"
+  },
+  "scripts": {
+    "start": "node index.js"
+  }
+}
