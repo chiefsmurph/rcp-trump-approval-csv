@@ -6,6 +6,9 @@
   "author": "John Murphy <chiefsmurph@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "csv-express": "^1.2.2",
+    "express": "^4.16.4",
+    "express-csv": "^0.6.0",
     "request": "^2.88.0",
     "request-promise": "^4.2.2"
   },
