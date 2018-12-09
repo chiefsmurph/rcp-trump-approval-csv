@@ -23,7 +23,7 @@ app.get('/', async (req, res) => {
     console.log(new Date().toLocaleString(), 'getting rcp trump json', req)
     const json = await getRCPTrumpJSON();
     console.log({ json})
-    res.csv(json);
+    res.csv(json, true);
 });
  
 app.listen(3010);
