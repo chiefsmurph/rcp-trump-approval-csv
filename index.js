@@ -1,30 +1,25 @@
-const url = 'https://www.realclearpolitics.com/epolls/json/6179_historical.js';
 
 const express = require('express');
 const csv = require('csv-express');
 const app = express();
 
-const rp = require('request-promise');
+const getRCP = require('./getRCP');
+const get538 = require('./get538');
 
-const getRCPTrumpJSON = async () => {
-    const res = await rp(url);
-    const trimmed = res.slice(12).slice(0, -2);
-    const parsed = JSON.parse(trimmed).poll.rcp_avg;
-    const mapped = parsed.map(({ date, candidate: [approve, disapprove] }) => ({
-        date: new Date(date).toLocaleDateString(),
-        approve: approve.value,
-        disapprove: disapprove.value
-    }));
-    return mapped;
-};
+app.get('/', (req, res) => res.sendFile(__dirname + '/home.html'));
 
- 
-app.get('/', async (req, res) => {
-    console.log(new Date().toLocaleString(), 'getting rcp trump json', req)
-    const json = await getRCPTrumpJSON();
-    console.log({ json})
+app.get('/rcp', async (req, res) => {
+    console.log(new Date().toLocaleString(), 'getting rcp trump json')
+    const json = await getRCP();
+    res.csv(json, true);
+});
+
+app.get('/538', async (req, res) => {
+    const includeFuture = req.query.includeFuture !== null;
+    console.log(new Date().toLocaleString(), 'getting 538 trump json', { includeFuture })
+    const json = await get538(includeFuture);
     res.csv(json, true);
 });
  
+ 
 app.listen(3010);
-
