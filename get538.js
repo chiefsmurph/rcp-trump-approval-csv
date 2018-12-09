@@ -17,8 +17,17 @@ const get538 = async (includeFuture) => {
     const mapped = json.map(obj => ({
         date: new Date(obj.date).toLocaleDateString(),
         approve: obj.approve_estimate,
-        disapprove: obj.disapprove_estimate
+        ...includeFuture && {
+            approveHi: obj.approve_hi,
+            approveLow: obj.approve_lo
+        },
+        disapprove: obj.disapprove_estimate,
+        ...includeFuture && {
+            disapproveHi: obj.disapprove_hi,
+            disapproveLo: obj.disapprove_lo
+        },
     }));
+    console.log(mapped);
     return mapped;
 };
 
